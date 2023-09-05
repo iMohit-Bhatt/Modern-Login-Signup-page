@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div class="container">
+      <input type="checkbox" id="flip" />
+      <div class="cover">
+        <div class="front" id="front">
+          <img src="images/frontImg.jpg" alt="" />
+          <div class="text">
+            <span class="text-1"
+              >Every new friend is a <br />
+              new adventure</span
+            >
+            <span class="text-2">Let's get connected</span>
+          </div>
+        </div>
+        <div id="back" class="back">
+          <img class="backImg" src="images/backImg.jpg" alt="" />
+          <div class="text">
+            <span class="text-1"
+              >Complete miles of journey <br />
+              with one step</span
+            >
+            <span class="text-2">Let's get started</span>
+          </div>
+        </div>
+      </div>
+      <div class="forms">
+        <div class="form-content">
+          <div class="login-form">
+            <div class="title">Login</div>
+            <form id="logform" action="#">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input type="text" id="lemail" placeholder="Enter your email" required />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input
+                    id="lpass"
+                    type="password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                </div>
+                <div class="text"><a href="#">Forgot password?</a></div>
+                <div class="button input-box">
+                  <input type="submit" value="Sumbit" />
+                </div>
+                <div class="text sign-up-text">
+                  Don't have an account?
+                  <label onclick="change()" for="flip">Sigup now</label>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="signup-form">
+            <div class="title">Signup</div>
+            <form id="signForm" action="">
+              <div class="input-boxes">
+                <div class="input-box">
+                  <i class="fas fa-user"></i>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="Enter your name"
+                    required
+                  />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-envelope"></i>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="Enter your email"
+                    required
+                  />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    minlength="8"
+                    oninvalid="this.setCustomValidity('Password should contain minimum 8 Characters')"
+                    oninput="this.setCustomValidity('')"
+                    required
+                  />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-lock"></i>
+                  <input
+                    type="password"
+                    id="confirm_password"
+                    placeholder="Confirm password"
+                    minlength="8"
+                    required
+                  />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-phone-alt"></i>
+                  <input
+                    type="text"
+                    placeholder="Mobile number"
+                    id="number"
+                    maxlength="10"
+                    pattern="[1-9]{1}[0-9]{9}"
+                    oninvalid="this.setCustomValidity('Enter a valid mumber')"
+                    oninput="this.setCustomValidity('')"
+                    required
+                  />
+                </div>
+                <div class="input-box">
+                  <i class="fas fa-birthday-cake"></i>
+                  <input
+                    type="date"
+                    id="dob"
+                    placeholder="dd/mm/yy"
+                    required
+                    style="color: gray"
+                  />
+                </div>
+                <div class="button input-box">
+                  <input type="submit" onclick="submit()" value="Sumbit" />
+                </div>
+                <div class="text sign-up-text">
+                  Already have an account?
+                  <label onclick="changeNew()" for="flip">Login now</label>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function change() {
+      document.getElementById("front").style.display = "none";
+      document.getElementById("back").style.display = "block";
+    }
+
+    function changeNew() {
+      document.getElementById("front").style.display = "block";
+      document.getElementById("back").style.display = "none";
+    }
+
+    var password = document.getElementById("password"),
+      confirm_password = document.getElementById("confirm_password");
+
+    function validatePassword() {
+      if (password.value != confirm_password.value) {
+        confirm_password.setCustomValidity("Passwords Did not Match");
+      } else {
+        confirm_password.setCustomValidity("");
+      }
+    }
+
+    password.onchange = validatePassword;
+    confirm_password.onkeyup = validatePassword;
+
+    // // Setting up the local Storage:----------
+
+    // var uname = document.getElementById('name').value;
+    // var uemail = document.getElementById('email').value;
+    // var upassword = document.getElementById('password').value;
+    // var unumber = document.getElementById('number').value;
+    // var udob = document.getElementById('dob').value;
+
+    // console.log(uname,uemail,upassword,unumber,udob);
+
+    window.onload = function () {
+      // Check for LocalStorage support.
+      if (localStorage) {
+        // Add an event listener for form submissions
+        document
+          .getElementById("signForm")
+          .addEventListener("submit", function () {
+
+            var name = document.getElementById("name").value;
+            var uemail = document.getElementById('email').value;
+            var upassword = document.getElementById('password').value;
+            var unumber = document.getElementById('number').value;
+            var udob = document.getElementById('dob').value;
+
+            if(uemail === localStorage['email']){
+              alert('email already exist');
+            }
+            else{
+              alert('Successfully Registered');
+
+            localStorage.setItem("name", name);
+            localStorage.setItem("email", uemail);
+            localStorage.setItem("password", upassword);
+            localStorage.setItem("number", unumber);
+            localStorage.setItem("dob", udob);
+            console.log(localStorage['email']);
+
+            console.log(localStorage)
+            }
+
+          });
+      }
+
+      document.getElementById('logform').addEventListener("submit", function(){
+        var lemail = document.getElementById('lemail').value;
+        var lpassword = document.getElementById('lpass').value;
+
+        if(lemail === localStorage['email'] && lpassword === localStorage['password']){
+          alert('Login Successfull');
+          location.href = "https://www.intelegencia.com";
+        }
+        else{
+          alert('wrong credentials');
+        }
+      })
+
+    };
+  </script>
+</html>
